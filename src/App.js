@@ -70,11 +70,11 @@ class App extends React.Component {
                 />
                 <main className={this.state.books.length > 0 ? 'not-empty' : 'empty'}>
                     <nav>
-                        <img src="./img/books.png" />
+                        <img src="./img/books.png" alt="books"/>
                         <h2>Book Library</h2>
                     </nav>
                     <div className="empty-state">
-                        <img src="./img/library.png" alt="library" />
+                        <img src="./img/library.png" alt="girl-sitting-on-bookpile-and-reading" />
                         <p>
                             Your library seems to be empty
                             <br/>

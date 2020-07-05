@@ -13,25 +13,27 @@ class App extends React.Component {
             modal : 'hide',
             books : []
         }
-
-        this._title    = React.createRef()
-        this._author   = React.createRef()
-        this._synopsis = React.createRef()
-        this._cover    = React.createRef()
+        // refs help target/select an element without 
+        // using the document.querySelector() or event.target syntax
+        this._title       = React.createRef()
+        this._author      = React.createRef()
+        this._description = React.createRef()
+        this._cover       = React.createRef()
 
         this.addBookToLibrary = this.addBookToLibrary.bind(this)
         this.openAddModal     = this.openAddModal.bind(this)
-        this.closeAddModal     = this.closeAddModal.bind(this)
+        this.closeAddModal    = this.closeAddModal.bind(this)
     }
 
     openAddModal() {
-        // clear input values
-        this._title.current.value    = ''
-        this._author.current.value   = ''
-        this._synopsis.current.value = ''
-        this._cover.current.value    = ''
-        this._synopsis.current.setAttribute('rows', '1')
-
+        // clear/reset input values
+        this._title.current.value       = ''
+        this._author.current.value      = ''
+        this._description.current.value = ''
+        this._cover.current.value       = ''
+        this._description.current.setAttribute('rows', '1')
+        // displays input fields for adding a new book 
+        // (triggers CSS style using the 'show' class)
         this.setState({modal: 'show'})
         this._title.current.focus()
     }
@@ -42,15 +44,17 @@ class App extends React.Component {
 
         this.setState({
             books: [...this.state.books, {
-                title    : this._title.current.value,
-                author   : this._author.current.value || 'Unknown author',
-                synopsis : this._synopsis.current.value || 'No description',
-                cover    : this._cover.current.files[0],
+                title       : this._title.current.value,
+                author      : this._author.current.value || 'Unknown author',
+                description : this._description.current.value || 'No description',
+                cover       : this._cover.current.files[0],
             }],
         })
     }
 
     closeAddModal () {
+        // hides input fields for adding a new book 
+        // (triggers CSS style using the 'hide' class)
         this.setState({modal: 'hide'})
     }
 
@@ -65,7 +69,7 @@ class App extends React.Component {
                     cancel={this.closeAddModal} 
                     title_ref={this._title} 
                     author_ref={this._author}
-                    synopsis_ref={this._synopsis}
+                    description_ref={this._description}
                     cover_ref={this._cover}
                 />
                 <main className={this.state.books.length > 0 ? 'not-empty' : 'empty'}>
@@ -73,11 +77,11 @@ class App extends React.Component {
                         <img src="./img/books.png" alt="books"/>
                         <h2>Book Library</h2>
                     </nav>
+                    {/* sets placholder image/background for an empty library */}
                     <div className="empty-state">
                         <img src="./img/library.png" alt="girl-sitting-on-bookpile-and-reading" />
                         <p>
-                            Your library seems to be empty
-                            <br/>
+                            Your library seems to be empty<br/>
                             <small>Click on the button below to build your library</small>
                         </p>
                     </div>
@@ -91,10 +95,7 @@ class App extends React.Component {
                     </div>
 
                     {/* Add button */}
-                    <button 
-                        className="add-btn" 
-                        onClick={this.openAddModal}
-                    >
+                    <button className="add-btn" onClick={this.openAddModal}>
                         Add a book
                     </button>
                 </main>

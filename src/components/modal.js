@@ -3,9 +3,12 @@ import React from 'react'
 
 class AddModal extends React.Component {
 
+	// adds a new row if description text exceeds cols limit (42 chars)
 	resize ({target}) {
 		const {length} = target.value
+		// get textarea (description) cols limit...
 		const cols = target.getAttribute('cols')
+		// then add new row if current col is maxed out
 		target.setAttribute(
 			'rows', 
 			+(length / cols).toString().split('.')[0] + 1
@@ -14,14 +17,12 @@ class AddModal extends React.Component {
 
 	render () {
 		const { 
-			cls, submit, cancel, title_ref, cover_ref, author_ref, synopsis_ref
+			cls, submit, cancel, title_ref, cover_ref, author_ref, description_ref
 		} = this.props
 
 		return (
 			<div className={"modal " + cls}>
-				<form 
-					onSubmit={submit}
-				>
+				<form onSubmit={submit}>
 					<input 
 						type="text" 
 						name="title" 
@@ -35,12 +36,13 @@ class AddModal extends React.Component {
 						ref={author_ref}
 					/>
 					<textarea 
+						name="description"
 						rows="1" 
 						cols="42" 
-						placeholder="Description / synopsis"
+						placeholder="Description"
 						maxLength="250"
 						onInput={this.resize}
-						ref={synopsis_ref}
+						ref={description_ref}
 					/>
 					<input 
 						type="file" 

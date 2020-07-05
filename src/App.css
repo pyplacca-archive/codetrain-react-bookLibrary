@@ -2,6 +2,9 @@
 	--color: #01a9b4;
 	--white: #fff;
 	--font: Roboto, sans-serif;
+
+	--min-w: 270px;
+	--max-w: 350px;
 }
 
 * {
@@ -29,7 +32,7 @@ nav h2 {
 }
 
 .modal-active main {
-	filter: blur(1.5px) grayscale(.7);
+	filter: blur(1px) grayscale(.7);
 	pointer-events: none;
 	overflow: hidden;
 }
@@ -204,14 +207,16 @@ main.not-empty .empty-state {
 	padding: var(--gap);
 
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(270px, 350px));
+	grid-template-columns: repeat(
+		auto-fit, minmax(var(--min-w), var(--max-w))
+	);
 	grid-column-gap: var(--gap);
 	grid-row-gap: var(--gap);
 }
 
 .book {
-	min-width: 270px;
-	max-width: 350px;
+	min-width: var(--min-w);
+	max-width: var(--max-w);
 	height: 170px;
 
 	margin: 20px 0;
@@ -247,8 +252,8 @@ main.not-empty .empty-state {
 }
 
 .book-info {
-	margin-left: 15px;
 	height: 100%;
+	margin-left: 15px;
 	overflow: hidden;
 	transition: transform .22s ease-in-out;
 }
@@ -270,10 +275,10 @@ main.not-empty .empty-state {
 	margin-top: var(--margin);
 	margin-bottom: calc(var(--margin) * 2);
 	
+	font-size: .8em;
 	text-transform: capitalize;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-	font-size: .8em;
 	
 	overflow: hidden;
 	
@@ -284,7 +289,7 @@ main.not-empty .empty-state {
 
 }
 
-.book-info .synopsis {
+.book-info .description {
 	font-size: .83em;
 	
 	/* animation */
@@ -344,9 +349,10 @@ main.not-empty .empty-state {
 		opacity: 1
 	}
 }
-
+/*
 @keyframes pushImage {
 	to {
 		transform: translateY(-25px);
 	}
 }
+*/
